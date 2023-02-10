@@ -1,0 +1,721 @@
+{
+  "ChecklistCode": "HL440",
+  "Produktgruppe": "Plattform",
+  "Datum": "2022-06-28T12:13:31.3361226+02:00",
+  "Merkmalgruppen": [
+    {
+      "ID": "MG0",
+      "Text": "Allgemein",
+      "Merkmale": [
+        {
+          "ID": "A1EINSATZOV2",
+          "Text": "Einsatzort",
+          "Typ": 0,
+          "Artikelnr": "",
+          "Variable": "A1EINSATZO",
+          "Enabled": true,
+          "Feldinhalt": null,
+          "Preis": {
+            "PreisProEinheit": 0,
+            "ImPreisInkludierteMenge": 0,
+            "Artikelnr": "",
+            "Excluders": [
+            ],
+            "Includers": [
+            ],
+            "IsValid": true
+          },
+          "PreiseExists": false,
+          "Angebotspreis": 0,
+          "MerkmalgruppeID": "MG0",
+          "Optionen": [
+            {
+              "Code": "IN",
+              "Text": "Inland(Festland)",
+              "Artikelnr": "",
+              "Langtext": null,
+              "Enabled": true,
+              "IsStandardoption": false,
+              "Preis": {
+                "PreisProEinheit": 0,
+                "ImPreisInkludierteMenge": 0,
+                "Artikelnr": "",
+                "Excluders": [
+                ],
+                "Includers": [
+                ],
+                "IsValid": true
+              },
+              "Preise": [
+              ],
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "Exists": true,
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "A1EINSATZOV2"
+            },
+            {
+              "Code": "AUS",
+              "Text": "Ausland",
+              "Artikelnr": "",
+              "Langtext": null,
+              "Enabled": true,
+              "IsStandardoption": false,
+              "Preis": {
+                "PreisProEinheit": 0,
+                "ImPreisInkludierteMenge": 0,
+                "Artikelnr": "",
+                "Excluders": [
+                ],
+                "Includers": [
+                ],
+                "IsValid": true
+              },
+              "Preise": [
+              ],
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "Exists": true,
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "A1EINSATZOV2"
+            },
+            {
+              "Code": "INSEL_IN",
+              "Text": "deutsche Insel",
+              "Artikelnr": "",
+              "Langtext": null,
+              "Enabled": true,
+              "IsStandardoption": false,
+              "Preis": {
+                "PreisProEinheit": 0,
+                "ImPreisInkludierteMenge": 0,
+                "Artikelnr": "",
+                "Excluders": [
+                ],
+                "Includers": [
+                ],
+                "IsValid": true
+              },
+              "Preise": [
+              ],
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "Exists": true,
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "A1EINSATZOV2"
+            }
+          ],
+          "Multiplikatoren": [
+          ],
+          "Mengenlimits": [
+          ],
+          "Excluders": [
+          ],
+          "Includers": [
+          ],
+          "SelectedOption": {
+            "Code": null,
+            "Text": null,
+            "Artikelnr": null,
+            "Langtext": null,
+            "Enabled": true,
+            "IsStandardoption": false,
+            "Preis": {
+              "PreisProEinheit": 0,
+              "ImPreisInkludierteMenge": 0,
+              "Artikelnr": "",
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "IsValid": true
+            },
+            "Preise": [
+            ],
+            "Excluders": [
+            ],
+            "Includers": [
+            ],
+            "Exists": false,
+            "MerkmalgruppeID": null,
+            "MerkmalID": null
+          },
+          "PointersToOptions": [
+          ],
+          "PointersToOptionPrice": [
+          ],
+          "PointersToMultiplikator": [
+          ],
+          "PointersToMengenlimiter": [
+          ],
+          "AlleOptionenDeaktiviert": false,
+          "IsOptionSelected": false,
+          "FeldinhaltGefuellt": false,
+          "LimitbreaksList": [
+          ],
+          "NoLimitbreaks": true,
+          "LimitbreaksExists": false,
+          "HasStandardOption": false
+        },
+        {
+          "ID": "AUSFUEHR",
+          "Text": "Montageort",
+          "Typ": 0,
+          "Artikelnr": "",
+          "Variable": "A2AUSFHRG",
+          "Enabled": true,
+          "Feldinhalt": null,
+          "Preis": {
+            "PreisProEinheit": 0,
+            "ImPreisInkludierteMenge": 0,
+            "Artikelnr": "",
+            "Excluders": [
+            ],
+            "Includers": [
+            ],
+            "IsValid": true
+          },
+          "PreiseExists": false,
+          "Angebotspreis": 0,
+          "MerkmalgruppeID": "MG0",
+          "Optionen": [
+            {
+              "Code": "AUSSEN",
+              "Text": "Au\u00DFenanlage",
+              "Artikelnr": "",
+              "Langtext": null,
+              "Enabled": true,
+              "IsStandardoption": false,
+              "Preis": {
+                "PreisProEinheit": 0,
+                "ImPreisInkludierteMenge": 0,
+                "Artikelnr": "",
+                "Excluders": [
+                ],
+                "Includers": [
+                ],
+                "IsValid": true
+              },
+              "Preise": [
+              ],
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "Exists": true,
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "AUSFUEHR"
+            },
+            {
+              "Code": "INNEN",
+              "Text": "Innenlage",
+              "Artikelnr": "",
+              "Langtext": null,
+              "Enabled": true,
+              "IsStandardoption": false,
+              "Preis": {
+                "PreisProEinheit": 0,
+                "ImPreisInkludierteMenge": 0,
+                "Artikelnr": "",
+                "Excluders": [
+                ],
+                "Includers": [
+                ],
+                "IsValid": true
+              },
+              "Preise": [
+              ],
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "Exists": true,
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "AUSFUEHR"
+            }
+          ],
+          "Multiplikatoren": [
+          ],
+          "Mengenlimits": [
+          ],
+          "Excluders": [
+          ],
+          "Includers": [
+          ],
+          "SelectedOption": {
+            "Code": null,
+            "Text": null,
+            "Artikelnr": null,
+            "Langtext": null,
+            "Enabled": true,
+            "IsStandardoption": false,
+            "Preis": {
+              "PreisProEinheit": 0,
+              "ImPreisInkludierteMenge": 0,
+              "Artikelnr": "",
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "IsValid": true
+            },
+            "Preise": [
+            ],
+            "Excluders": [
+            ],
+            "Includers": [
+            ],
+            "Exists": false,
+            "MerkmalgruppeID": null,
+            "MerkmalID": null
+          },
+          "PointersToOptions": [
+          ],
+          "PointersToOptionPrice": [
+          ],
+          "PointersToMultiplikator": [
+          ],
+          "PointersToMengenlimiter": [
+          ],
+          "AlleOptionenDeaktiviert": false,
+          "IsOptionSelected": false,
+          "FeldinhaltGefuellt": false,
+          "LimitbreaksList": [
+          ],
+          "NoLimitbreaks": true,
+          "LimitbreaksExists": false,
+          "HasStandardOption": false
+        },
+        {
+          "ID": "OEFFENTLIC",
+          "Text": "\u00F6ffentliches Geb\u00E4ude",
+          "Typ": 0,
+          "Artikelnr": "",
+          "Variable": "",
+          "Enabled": true,
+          "Feldinhalt": null,
+          "Preis": {
+            "PreisProEinheit": 0,
+            "ImPreisInkludierteMenge": 0,
+            "Artikelnr": "",
+            "Excluders": [
+            ],
+            "Includers": [
+            ],
+            "IsValid": true
+          },
+          "PreiseExists": false,
+          "Angebotspreis": 0,
+          "MerkmalgruppeID": "MG0",
+          "Optionen": [
+            {
+              "Code": "JA",
+              "Text": "Ja",
+              "Artikelnr": "",
+              "Langtext": null,
+              "Enabled": true,
+              "IsStandardoption": false,
+              "Preis": {
+                "PreisProEinheit": 0,
+                "ImPreisInkludierteMenge": 0,
+                "Artikelnr": "",
+                "Excluders": [
+                ],
+                "Includers": [
+                ],
+                "IsValid": true
+              },
+              "Preise": [
+              ],
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "Exists": true,
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "OEFFENTLIC"
+            },
+            {
+              "Code": "NEIN",
+              "Text": "Nein",
+              "Artikelnr": "",
+              "Langtext": null,
+              "Enabled": true,
+              "IsStandardoption": false,
+              "Preis": {
+                "PreisProEinheit": 0,
+                "ImPreisInkludierteMenge": 0,
+                "Artikelnr": "",
+                "Excluders": [
+                ],
+                "Includers": [
+                ],
+                "IsValid": true
+              },
+              "Preise": [
+              ],
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "Exists": true,
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "OEFFENTLIC"
+            }
+          ],
+          "Multiplikatoren": [
+          ],
+          "Mengenlimits": [
+          ],
+          "Excluders": [
+          ],
+          "Includers": [
+          ],
+          "SelectedOption": {
+            "Code": null,
+            "Text": null,
+            "Artikelnr": null,
+            "Langtext": null,
+            "Enabled": true,
+            "IsStandardoption": false,
+            "Preis": {
+              "PreisProEinheit": 0,
+              "ImPreisInkludierteMenge": 0,
+              "Artikelnr": "",
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "IsValid": true
+            },
+            "Preise": [
+            ],
+            "Excluders": [
+            ],
+            "Includers": [
+            ],
+            "Exists": false,
+            "MerkmalgruppeID": null,
+            "MerkmalID": null
+          },
+          "PointersToOptions": [
+          ],
+          "PointersToOptionPrice": [
+          ],
+          "PointersToMultiplikator": [
+          ],
+          "PointersToMengenlimiter": [
+            {
+              "Typ": 0,
+              "RelatedMerkmalgruppe": "",
+              "RelatedMerkmal": "",
+              "ProMenge": 1,
+              "Mengelimnit": 0,
+              "Limitbreak": 0,
+              "ConnectedToMerkmal": false,
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "GRUBE"
+            }
+          ],
+          "AlleOptionenDeaktiviert": false,
+          "IsOptionSelected": false,
+          "FeldinhaltGefuellt": false,
+          "LimitbreaksList": [
+          ],
+          "NoLimitbreaks": true,
+          "LimitbreaksExists": false,
+          "HasStandardOption": false
+        },
+        {
+          "ID": "STRASS",
+          "Text": "von Stra\u00DFe erreichbar",
+          "Typ": 0,
+          "Artikelnr": "",
+          "Variable": "",
+          "Enabled": true,
+          "Feldinhalt": null,
+          "Preis": {
+            "PreisProEinheit": 0,
+            "ImPreisInkludierteMenge": 0,
+            "Artikelnr": "",
+            "Excluders": [
+            ],
+            "Includers": [
+            ],
+            "IsValid": true
+          },
+          "PreiseExists": false,
+          "Angebotspreis": 0,
+          "MerkmalgruppeID": "MG0",
+          "Optionen": [
+            {
+              "Code": "JA",
+              "Text": "Ja",
+              "Artikelnr": "",
+              "Langtext": null,
+              "Enabled": true,
+              "IsStandardoption": false,
+              "Preis": {
+                "PreisProEinheit": 0,
+                "ImPreisInkludierteMenge": 0,
+                "Artikelnr": "",
+                "Excluders": [
+                ],
+                "Includers": [
+                ],
+                "IsValid": true
+              },
+              "Preise": [
+              ],
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "Exists": true,
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "STRASS"
+            },
+            {
+              "Code": "NEIN",
+              "Text": "Nein",
+              "Artikelnr": "",
+              "Langtext": null,
+              "Enabled": true,
+              "IsStandardoption": false,
+              "Preis": {
+                "PreisProEinheit": 0,
+                "ImPreisInkludierteMenge": 0,
+                "Artikelnr": "",
+                "Excluders": [
+                ],
+                "Includers": [
+                ],
+                "IsValid": true
+              },
+              "Preise": [
+              ],
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "Exists": true,
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "STRASS"
+            }
+          ],
+          "Multiplikatoren": [
+          ],
+          "Mengenlimits": [
+          ],
+          "Excluders": [
+          ],
+          "Includers": [
+          ],
+          "SelectedOption": {
+            "Code": null,
+            "Text": null,
+            "Artikelnr": null,
+            "Langtext": null,
+            "Enabled": true,
+            "IsStandardoption": false,
+            "Preis": {
+              "PreisProEinheit": 0,
+              "ImPreisInkludierteMenge": 0,
+              "Artikelnr": "",
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "IsValid": true
+            },
+            "Preise": [
+            ],
+            "Excluders": [
+            ],
+            "Includers": [
+            ],
+            "Exists": false,
+            "MerkmalgruppeID": null,
+            "MerkmalID": null
+          },
+          "PointersToOptions": [
+          ],
+          "PointersToOptionPrice": [
+          ],
+          "PointersToMultiplikator": [
+          ],
+          "PointersToMengenlimiter": [
+          ],
+          "AlleOptionenDeaktiviert": false,
+          "IsOptionSelected": false,
+          "FeldinhaltGefuellt": false,
+          "LimitbreaksList": [
+          ],
+          "NoLimitbreaks": true,
+          "LimitbreaksExists": false,
+          "HasStandardOption": false
+        },
+        {
+          "ID": "GRUBE",
+          "Text": "Grubentiefe",
+          "Typ": 1,
+          "Artikelnr": "",
+          "Variable": "",
+          "Enabled": true,
+          "Feldinhalt": null,
+          "Preis": {
+            "PreisProEinheit": 0,
+            "ImPreisInkludierteMenge": 0,
+            "Artikelnr": "",
+            "Excluders": [
+            ],
+            "Includers": [
+            ],
+            "IsValid": true
+          },
+          "PreiseExists": false,
+          "Angebotspreis": 0,
+          "MerkmalgruppeID": "MG0",
+          "Optionen": [
+          ],
+          "Multiplikatoren": [
+          ],
+          "Mengenlimits": [
+            {
+              "Typ": 2,
+              "RelatedMerkmalgruppe": "",
+              "RelatedMerkmal": "",
+              "ProMenge": 85.00,
+              "Mengelimnit": 0,
+              "Limitbreak": 0,
+              "ConnectedToMerkmal": false,
+              "Excluders": [
+              ],
+              "Includers": [
+                {
+                  "Typ": 1,
+                  "Selection": [
+                    {
+                      "OptionCode": "JA",
+                      "MerkmalgruppeID": "MG0",
+                      "MerkmalID": "OEFFENTLIC"
+                    }
+                  ]
+                }
+              ],
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "GRUBE"
+            },
+            {
+              "Typ": 0,
+              "RelatedMerkmalgruppe": "",
+              "RelatedMerkmal": "",
+              "ProMenge": 0.00,
+              "Mengelimnit": 0,
+              "Limitbreak": 0,
+              "ConnectedToMerkmal": false,
+              "Excluders": [
+              ],
+              "Includers": [
+                {
+                  "Typ": 1,
+                  "Selection": [
+                    {
+                      "OptionCode": "NEIN",
+                      "MerkmalgruppeID": "MG0",
+                      "MerkmalID": "OEFFENTLIC"
+                    }
+                  ]
+                }
+              ],
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "GRUBE"
+            },
+            {
+              "Typ": 1,
+              "RelatedMerkmalgruppe": "",
+              "RelatedMerkmal": "",
+              "ProMenge": 85.00,
+              "Mengelimnit": 0,
+              "Limitbreak": 0,
+              "ConnectedToMerkmal": false,
+              "Excluders": [
+              ],
+              "Includers": [
+                {
+                  "Typ": 1,
+                  "Selection": [
+                    {
+                      "OptionCode": "NEIN",
+                      "MerkmalgruppeID": "MG0",
+                      "MerkmalID": "OEFFENTLIC"
+                    }
+                  ]
+                }
+              ],
+              "MerkmalgruppeID": "MG0",
+              "MerkmalID": "GRUBE"
+            }
+          ],
+          "Excluders": [
+          ],
+          "Includers": [
+          ],
+          "SelectedOption": {
+            "Code": null,
+            "Text": null,
+            "Artikelnr": null,
+            "Langtext": null,
+            "Enabled": true,
+            "IsStandardoption": false,
+            "Preis": {
+              "PreisProEinheit": 0,
+              "ImPreisInkludierteMenge": 0,
+              "Artikelnr": "",
+              "Excluders": [
+              ],
+              "Includers": [
+              ],
+              "IsValid": true
+            },
+            "Preise": [
+            ],
+            "Excluders": [
+            ],
+            "Includers": [
+            ],
+            "Exists": false,
+            "MerkmalgruppeID": null,
+            "MerkmalID": null
+          },
+          "PointersToOptions": [
+          ],
+          "PointersToOptionPrice": [
+          ],
+          "PointersToMultiplikator": [
+          ],
+          "PointersToMengenlimiter": [
+          ],
+          "AlleOptionenDeaktiviert": true,
+          "IsOptionSelected": false,
+          "FeldinhaltGefuellt": false,
+          "LimitbreaksList": [
+          ],
+          "NoLimitbreaks": true,
+          "LimitbreaksExists": false,
+          "HasStandardOption": false
+        }
+      ]
+    }
+  ]
+}

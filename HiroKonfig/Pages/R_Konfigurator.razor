@@ -1,0 +1,969 @@
+﻿@page "/konfigurator"
+@page "/konfigurator/{Modus:int}/{SourceID:int}"
+@page "/konfigurator/{Modus:int}/{SourceID:int}/{Version:int}"
+
+@inject IJSRuntime IJS
+@inject IKundeService KundeService
+@inject NavigationManager NavMan
+
+<style>
+   
+
+</style>
+<div class="mainframe">
+    <div class="row gap">
+        <div class="col-12">
+            <h1>Konfigurator</h1>
+        </div>
+    </div>
+
+    <div class="row gap">
+        <div class="col-12 col-md-6 col-lg-8">
+            <div class="row gap">
+                <div class="col-12">
+                    <p>Kunde: <b>@Konfig.Kundenadresse</b></p>
+                </div>
+                <div class="col-12">
+                    <div class="row small-gap">
+                        @foreach (string gruppe in Produktgruppen.Gruppen)
+                        {
+                            <div class="col-12 col-md-4 small-gap">
+                                <button class="btn btn-blue btn-block" @onclick="() => LadeChecklisten(gruppe)">@gruppe</button>
+                            </div>
+                        }
+                    </div>
+                    <div class="row small-gap">
+                        <div class="col-4">
+                            <p>CL Code: </p>
+                        </div>
+                        <div class="col-8">
+                            <select class="select checklistauswahl form-control" name="Checklistauswahl" id="Checklistauswahl" @bind="AktuellerChecklistencode" @onclick="ChecklistChanged">
+                                <option value=""></option>
+                                @if (Checklistencodes != null)
+                                {
+                                    @foreach (string checklistcode in Checklistencodes)
+                                    {
+                                        <option value=@checklistcode>@checklistcode</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <p class="gruppentitle">@(@Konfig.Produktgruppe ?? ".")<span class="labelright"> Version: @Konfig.Version</span></p>
+                        </div>
+                </div>
+                </div>
+            </div>
+            <div class="row gap">
+                <div class="col-12">
+                    <h2>Konfiguration</h2>
+                </div>
+                <div class="col-12">
+                    <ul class="nav row small-gap" id="Gruppenselector">
+                        @if (GroupItems != null)
+                        {
+                            @foreach (KeyValuePair<string, string> kvp in GroupItems)
+                            {
+                                <li class="lst-gruppenmerkmal col-12 col-md  small-gap">
+                                    <button class="btn btn-coral btn-block btn-gruppenmerkmal" id=@kvp.Key @onclick="() => GruppeClicked(kvp.Key)"><span aria-hidden="true"></span>    @kvp.Value</button>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="col-12">
+                    @if (@Merkmaltems != null)
+                    {
+                        @foreach (KonfiguratorCheckliste.Merkmal merkmal in @Merkmaltems)
+                        {
+                            <div class="row">
+                                <div class="col-12 col-md">
+                                    <div class="col-12">
+                                         <div class="konfigitem">
+                                                <div class="row">
+                                                    <div class="col-12 col-lg-3 align-self-center">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                            <div class="merkmalbezeichnung">
+                                                                <p class="no-margin @(!@merkmal.Enabled || @merkmal.AlleOptionenDeaktiviert ? " deaktiviert " : " aktiviert")"><b>@merkmal.Text</b></p>
+                                                            </div>
+                                                        </div>
+                                                        @if (merkmal.HasHinweis || merkmal.HasOptionenPic) {
+                                                            <div class="col-auto ml-auto" style="padding:0">
+                                                                    <div class="form-row">
+                                                                <div class="col-auto ml-auto">
+                                                                    @if (merkmal.HasHinweis)
+                                                                    {
+                                                                            <button type="button" class="btn-dark" @onclick="() => ShowHinweis(merkmal)"><span class="oi oi-pencil"></span></button>
+                                                                    }
+
+                                                                    @if (merkmal.HasOptionenPic)
+                                                                    {
+                                                                            <button type="button" class="btn-dark" @onclick="() => ShowPicture(merkmal)">B</button>
+                                                                    }
+                                                                </div>
+                                                                 <div class="col-auto ml-auto">
+                                                                                                                     <button type="button" class="btn-dark" @onclick="() => ShowPicture(merkmal)"><span class="oi oi-pencil"></span></button>
+                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                                }
+                                                        <div class="col-auto ml-auto" style="padding:0">
+                                                            <div class="form-row">
+                                                                <div class="col-auto ml-auto">
+                                                                   
+                                                                </div>
+                                                                <div class="col-auto ml-auto">
+                                                                    <button type="button" class="btn-dark" @onclick="() => ShowPicture(merkmal)"><span class="oi oi-image"></span></button>
+                                                                    <button type="button" class="btn-dark" @onclick="() => ShowPicture(merkmal)"><span class="oi oi-pencil"></span></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                            </div>
+                                                    
+
+                                                    </div>
+                                                <div class="col-9 col-md-9 col-lg-7 align-self-center ">
+                                                        <div class="merkmalauswahl">
+                                                        @switch (merkmal.Typ)
+                                                        {
+                                                            @case KonfiguratorCheckliste.Merkmal.Typen.Option:
+                                                                @if (merkmal.Enabled == true && !merkmal.AlleOptionenDeaktiviert)
+                                                                {
+                                                                    <select class="select form-control @(@merkmal.IsOptionSelected ? " auswahlerfolgt" : " auswahloffen")" name=@merkmal.MerkmalID id=@merkmal.MerkmalID @bind="merkmal.Feldinhalt" @onclick="() => MerkmalFeldChanged(merkmal)">
+                                                                        @if (merkmal.AnzahlOptionen > 1)
+                                                                        {
+                                                                            <option value="">-- Auswahl -- </option>
+                                                                        }
+                                                                        @foreach (KonfiguratorCheckliste.Option option in merkmal.Optionen)
+                                                                        {
+                                                                            @if (option.Enabled)
+                                                                            {
+                                                                                <option value=@option.Code>
+                                                                                    @option.Bezeichnung
+                                                                                </option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value=@option.Code disabled>
+                                                                                    @option.Bezeichnung
+                                                                                </option>
+                                                                            }
+                                                                        }
+                                                                    </select>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <select class="select" id=@merkmal.MerkmalID @bind=@merkmal.Feldinhalt disabled>
+                                                                        <option value="">-- ------- -- </option>
+                                                                    </select>
+                                                                }
+                                                                break;
+                                                            @case KonfiguratorCheckliste.Merkmal.Typen.Zahl:
+                                                                @if (merkmal.Enabled == true)
+                                                                {
+                                                                    <input type="text" class="form-control inputbox inputboxmerkmal
+                                                        @(@merkmal.FeldinhaltGefuellt==true ? (@merkmal.LimitbreaksExists ? " limitnichtok " : " limitok ") : " auswahloffen-color " )"
+                                                       id=@merkmal.MerkmalID @bind=@merkmal.Feldinhalt @onblur="() => MerkmalFeldChanged(merkmal)">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="text" class="form-control inputbox inputboxmerkmal" disabled>
+                                                                }
+                                                                break;
+                                                            @case KonfiguratorCheckliste.Merkmal.Typen.Text:
+                                                                @if (merkmal.Enabled == true)
+                                                                {
+                                                                    <button type="button" name=@merkmal.MerkmalID id=@merkmal.MerkmalID class="btn-dark" @onclick="() => EditText(merkmal)">Textinhalt ...</button>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="text" class="form-control inputbox inputboxmerkmal" disabled>
+                                                                }
+                                                                break;
+                                                            @case KonfiguratorCheckliste.Merkmal.Typen.Formel:
+                                                                @if (merkmal.Enabled == true)
+                                                                {
+                                                                    <input type="number" class="form-control inputbox inputboxmerkmal" @bind=@merkmal.Feldinhalt disabled>
+                                                                }
+                                                                break;
+                                                            @case KonfiguratorCheckliste.Merkmal.Typen.Bool:
+                                                                @if (merkmal.Feldinhalt == "1")
+                                                                {
+                                                                    <input type="checkbox" checked>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="checkbox">
+                                                                }
+                                                                break;
+                                                        }
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3 col-md-3 col-lg-2 align-self-center text-right">
+                                                    <div class="@PricesCssClass merkmalpreis" @onclick="togglePrices">
+                                                        <p class="no-margin merkmalpreisfeld @(@merkmal.AlleOptionenDeaktiviert ? " deaktiviert " : " aktiviert")">@(@merkmal.Angebotspreis.ToString("N2"))  €</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="overview">
+                <div class="row h-100">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>Ihre Konfiguration</h4>
+                            </div>
+                            <div class="col-12">
+                                <div class="konfigitem">
+                                    <div class="row">
+
+                                        <div class="col-7 align-self-center">
+                                            <p class="no-margin">Preis:</p>
+                                        </div>
+                                        <div class="col-5 align-self-center text-right">
+                                            <p class="no-margin">@Math.Round(@Konfig.AngebotspreisVorRabatt,2)  €</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="konfigitem">
+                                    <div class="row">
+                                        <div class="col-7 align-self-center">
+                                <div class="row">
+                                                <div class="col-auto align-self-center">
+                                                    <p class="no-margin">Rabatt&nbsp(%):</p>
+
+                                    </div>
+                                    <div class="col align-self-center">
+                                        <input type="text" class="form-control inputbox" max="15" @bind="@Konfig.Rabattprozent">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5 align-self-center text-right">
+                                            <p class="no-margin">@Math.Round(@Konfig.Rabattbetrag,2) €</p>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="konfigitem">
+                                    <div class="row">
+                            <div class="col-7 align-self-center">
+                                <p class="no-margin">Angebotspreis:</p>
+                            </div>
+                                        <div class="col-5 align-self-center text-right">
+                                <p class="no-margin">@Math.Round(@Konfig.AngebotspreisInklRabatt,2) €</p>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="konfigitem">
+                                    <div class="row">
+                            <div class="col-7 align-self-center">
+                                <p class="no-margin">MWSt: @Math.Round(@Konfig.Mehrwersteuersatz,1) %</p>
+                            </div>
+                            <div class="col-5 align-self-center text-right">
+                                            <p class="no-margin">@Math.Round(@Konfig.Mehrwersteuerbetrag,2) €</p>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row gap">
+                            <div class="col-12">
+                                <div class="konfigitem">
+                                    <div class="row">
+                            <div class="col-7 align-self-center">
+                                <p class="no-margin">Gesamtpreis:</p>
+                            </div>
+                                        <div class="col-5 align-self-center text-right">
+                                <p class="no-margin">@Math.Round(@Konfig.AngebotspreisInklMWSt,2) €</p>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            @if (GroupItems != null)
+                            {
+                                <div class="col-12"><h5>Ihre Konfiguration im Überblick</h5></div>
+                                <div class="col-12">
+                                    <div class="accordion" id="accordionKonfiguration">
+                                        @{
+                                            int i = 0;
+                                        }
+                                        @foreach (KeyValuePair<string, string> kvp in GroupItems)
+                                        {
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="head-@i">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@i" aria-expanded="false" aria-controls="collapse-@i">
+                                                        @kvp.Value
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse-@i" class="accordion-collapse collapse" aria-labelledby="head-@i" data-bs-parent="#accordionKonfiguration">
+                                                    <div class="accordion-body">
+                                                        <ul class="checklist">
+                                                            @if (SelectedMerkmale != null && SelectedMerkmale.ContainsKey(@kvp.Key))
+                                                            {
+                                                                @foreach (SelectedMerkmal mrkml in SelectedMerkmale[@kvp.Key])
+                                                                {
+                                                                    <li>
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                @mrkml.Bezeichnung
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                @mrkml.Feldinhalttext
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            i++;
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <!--
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <button class="btn btn-blue small-gap btn-block" @onclick="() => DruckeAngebot()">Drucken</button>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <button class="btn btn-coral small-gap btn-block" @onclick="() => SpeicherKonfiguration()">Speichern</button>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+                    
+               
+            </div>
+        </div>
+         
+    </div>
+    </div>
+
+    <div class="statusholder row justify-content-end">
+    <div class=" col-12 col-lg-4 align-self-end ml-auto"> 
+        <div class="status">
+        <div class="row small-gap">
+            <div class="col align-self-end">
+                  <span class="statusindicator @(@Konfig.IsKonfigurationVollstaendig ? " konfigOK " : " konfigNo")">
+             Status: @(@Konfig.IsKonfigurationVollstaendig ? "vollständig" : "unvollständig")
+        </span>
+            </div>
+        </div>
+      
+         <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-blue small-gap btn-block" @onclick="() => DruckeAngebot()">Drucken</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-coral small-gap btn-block" @onclick="() => SpeicherKonfiguration()">Speichern</button>
+                            </div>
+                        </div>
+        </div>
+    </div>
+</div>
+    @if (!string.IsNullOrEmpty(error))
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="btn-close" data-dismiss="alert" @onclick="@(() => error=null)">&times;</button>
+            <strong>Fehler: </strong>@error
+        </div>
+    }
+    
+
+    <!--
+    <div class="row kunde">
+        <p>Kunde: @Konfig.Kundenadresse</p>
+    </div>
+    <div class="produktmenu">
+        @foreach (string gruppe in Produktgruppen.Gruppen)
+        {
+             <button class="btn btn-dark" @onclick = "() => LadeChecklisten(gruppe)">@gruppe</button>
+        }
+    </div>-->
+    <!--<div class="row workframe">
+    <div class="col-sm-4 gruppenauswahl">
+            <div>
+                
+                <div class="row">
+                    <div class="COL-4">
+                        <p class="labelleft">CL Code: </p>
+                    </div>
+                    <div class="col-8">
+                        <select class="select checklistauswahl" name="Checklistauswahl" id="Checklistauswahl" @bind="AktuellerChecklistencode" @onclick="ChecklistChanged">
+                            <option value=""></option>
+                            @if (Checklistencodes != null)
+                            {
+                                @foreach (string checklistcode in Checklistencodes)
+                                {
+                                    <option value=@checklistcode>@checklistcode</option>
+                                }
+                            }
+                        </select>
+                        </div>
+                </div>
+            </div>
+            <p class="gruppentitle">@(@Konfig.Produktgruppe ?? ".")<span class="labelright">Version: @Konfig.Version</span></p>
+        <div class="angebotspreis">
+               
+        </div>
+            <p class="gruppentitle @(@Konfig.IsKonfigurationVollstaendig ? " konfigOK " : " konfigNo")">@(@Konfig.IsKonfigurationVollstaendig ? "vollständig" : "unvollständig")</p>
+            <div>
+                <button class="btn btn-dark" @onclick="() => DruckeAngebot()">Drucken</button>
+                <button class="btn btn-dark" @onclick="() => SpeicherKonfiguration()">Speichern</button>
+            </div>
+            <ul class=" nav flex-column" id="Gruppenselector">
+                @if (GroupItems != null)
+                {
+                    @foreach (KeyValuePair<string, string> kvp in GroupItems)
+                    {
+                        <li class="lst-gruppenmerkmal">
+                            <button class="btn btn-dark btn-gruppenmerkmal" id=@kvp.Key @onclick="() => GruppeClicked(kvp.Key)"><span aria-hidden="true"></span>    @kvp.Value</button>
+                        </li>
+                    }
+                }
+            </ul>
+            </div>
+        <div class="col-sm-8 gruppenmerkmale">
+            <p class="gruppentitle">@if (@SelectedMerkmalgruppe != null)@SelectedMerkmalgruppe.Text </p>
+            @if (@Merkmaltems != null)
+            {
+                @foreach (KonfiguratorCheckliste.Merkmal merkmal in @Merkmaltems)
+                {
+                   <div class="row">
+                        <div class="col-sm-1">
+                            @if (merkmal.HasHinweis)
+                            {
+                                <button type="button" class="btn-dark"  @onclick="() => ShowHinweis(merkmal)">?</button>
+                            }
+                        </div> 
+                        <div class="col-sm-1">
+                            @if (merkmal.HasOptionenPic)
+                            {
+                                <button type="button" class="btn-dark" @onclick="() => ShowPicture(merkmal)">B</button>
+                            }
+                        </div>
+                        <div class="col-sm-3 merkmalbezeichnung">
+                            <p class="@(!@merkmal.Enabled || @merkmal.AlleOptionenDeaktiviert ? " deaktiviert " : " aktiviert")">@merkmal.Text</p>
+                        </div>
+                        <div class="col-sm-4 merkmalauswahl">
+                            @switch (merkmal.Typ)
+                            {
+                                @case KonfiguratorCheckliste.Merkmal.Typen.Option:
+                                    @if (merkmal.Enabled == true && !merkmal.AlleOptionenDeaktiviert)
+                                    {
+                                         <select class="select @(@merkmal.IsOptionSelected ? " auswahlerfolgt" : " auswahloffen")" name=@merkmal.MerkmalID id=@merkmal.MerkmalID @bind="merkmal.Feldinhalt" @onclick="() => MerkmalFeldChanged(merkmal)">
+                                                @if (merkmal.AnzahlOptionen > 1)
+                                                {
+                                                    <option value="">-- Auswahl -- </option>
+                                                }
+                                                @foreach (KonfiguratorCheckliste.Option option in merkmal.Optionen)
+                                                {
+                                                    @if (option.Enabled)
+                                                    {
+                                                        <option value=@option.Code>
+                                                            @option.Bezeichnung
+                                                        </option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value=@option.Code disabled>
+                                                            @option.Bezeichnung
+                                                        </option>
+                                                    }
+                                                 }
+                                         </select>
+                                    }
+                                    else
+                                    {
+                                         <select class="select" id=@merkmal.MerkmalID @bind=@merkmal.Feldinhalt disabled>
+                                            <option value="">-- ------- -- </option>
+                                         </select>
+                                    }
+                                    break;
+                                @case KonfiguratorCheckliste.Merkmal.Typen.Zahl:
+                                    @if (merkmal.Enabled == true)
+                                    {
+                                        <input type="text" class="form-control inputbox inputboxmerkmal 
+                                            @(@merkmal.FeldinhaltGefuellt==true ? (@merkmal.LimitbreaksExists ? " limitnichtok " : " limitok ") : " auswahloffen-color " )"
+                                            id=@merkmal.MerkmalID @bind=@merkmal.Feldinhalt @onblur="() => MerkmalFeldChanged(merkmal)">
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control inputbox inputboxmerkmal" disabled>
+                                    }
+                                    break;
+                                @case KonfiguratorCheckliste.Merkmal.Typen.Text:
+                                   @if (merkmal.Enabled == true)
+                                    {
+                                        <button type="button" name=@merkmal.MerkmalID id=@merkmal.MerkmalID class="btn-dark" @onclick="() => EditText(merkmal)">Textinhalt ...</button>
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control inputbox inputboxmerkmal" disabled>
+                                    }
+                                    break;
+                                @case KonfiguratorCheckliste.Merkmal.Typen.Formel:
+                                        @if (merkmal.Enabled ==true)
+                                        {
+                                            <input type="number" class="form-control inputbox inputboxmerkmal" @bind=@merkmal.Feldinhalt disabled>
+                                        }
+                                    break;
+                                @case KonfiguratorCheckliste.Merkmal.Typen.Bool:
+                                    @if (merkmal.Feldinhalt == "1")
+                                    {
+                                        <input type="checkbox" checked>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox">
+                                    }
+                                    break;
+                            }
+                        </div>
+                        <div class="col-sm-3 merkmalpreis">
+                            <p class="merkmalpreisfeld @(@merkmal.AlleOptionenDeaktiviert ? " deaktiviert " : " aktiviert")">@(@merkmal.Angebotspreis.ToString("N2"))  €</p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        -->
+
+
+    @if (showModal || showPic || editText)
+    {
+        <div class="modal fade show" id="myModal" style="display:block" aria-modal="true" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">@hinweisTitel</h4>
+                        <!--<button type="button" class="btn btn-coral close" data-dismiss="modal" aria-label="Close" @onclick="@ModalClose">
+                            <span aria-hidden="true">&times;</span>
+                        </button>-->
+                    </div>
+
+                    <!-- Modal body -->
+                    @if (showModal)
+                    {
+                        <div class="modal-body">
+                            @for (int s = 0; s < hinweisText.Length; s++)
+                            {
+                                <p>@hinweisText[s]</p>
+                            }
+                        </div>
+                    }
+                    @if (@showPic)
+                    {
+                        <div class="modal-body">
+                            <img src="@bilddatei" />
+                        </div>
+                    }
+                    @if (editText)
+                    {
+                        <div class="modal-body" style="height:400px">
+                            <textarea class="w-100 form-control h-100" @bind=@textInput />
+                        </div>
+                    }
+
+                    <!-- Modal footer -->
+                @if (@showPic)
+                {
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-coral" @onclick="@ModalClose">Schließen</button>
+                    </div>
+                }
+                  @if (editText)
+                    {
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-coral" @onclick="@ModalClose">Speichern</button>
+                    </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+  
+
+
+@functions {
+
+    private KonfiguratorCheckliste.Merkmalgruppe SelectedMerkmalgruppe;
+    private Dictionary<string, string> GroupItems;
+    private Produktgruppen Produktgruppen;
+
+    private void AddGroupItem(string itmkey, string itmtxt)
+    {
+        GroupItems.Add(itmkey, itmtxt);
+    }
+
+    private List<KonfiguratorCheckliste.Merkmal> Merkmaltems;
+
+    private void AddMerkmalItem(KonfiguratorCheckliste.Merkmal merkmal)
+    {
+        Merkmaltems.Add(merkmal);
+    }
+
+    private struct SelectedMerkmal
+    {
+        public string Code;
+        public string Bezeichnung;
+        public string Feldinhalttext;
+        public string Textausgabe;
+    }
+
+    private Dictionary<string, List<SelectedMerkmal>> SelectedMerkmale;
+
+    private void UpdateSelectedMerkmal(string merkmalgruppeid)
+    {
+        KonfiguratorCheckliste.Merkmalgruppe mrkmlgrp = Konfig.GetMerkmalgruppeByID(merkmalgruppeid);
+        SelectedMerkmal sm;
+        if (SelectedMerkmale == null) SelectedMerkmale = new();
+        if (!SelectedMerkmale.ContainsKey(merkmalgruppeid))
+        {
+            SelectedMerkmale.Add(merkmalgruppeid, new List<SelectedMerkmal>());
+        }
+        else
+        {
+            SelectedMerkmale[merkmalgruppeid].Clear();
+        }
+        foreach (KonfiguratorCheckliste.Merkmal merkmal in mrkmlgrp.Merkmale)
+        {
+            if (merkmal.FeldinhaltGefuellt)
+            {
+                sm = new SelectedMerkmal { Code = merkmal.MerkmalID, Bezeichnung = merkmal.Text };
+                if (merkmal.IsOptionCase)
+                {
+                    sm.Feldinhalttext = merkmal.SelectedOption.Bezeichnung;
+                }
+                else
+                {
+                    sm.Feldinhalttext = merkmal.Feldinhalt;
+                }
+                sm.Textausgabe = string.Concat(string.Concat(sm.Bezeichnung, ": ").PadRight(30, ' '), sm.Feldinhalttext);
+                SelectedMerkmale[merkmal.MerkmalgruppeID].Add(sm);
+            }
+        }
+
+    }
+
+}
+
+@code {
+
+    [Parameter]
+    public int Modus { get; set; } = 0; // 0: frei, 1:kunde, 2:aktion
+    [Parameter]
+    public int SourceID { get; set; } = 0; // Modus = 1 => KundenID, 2 => AktionsID
+    [Parameter]
+    public int Version { get; set; } = 0;
+
+    private List<string> Checklistencodes;
+    string AktuellerChecklistencode;
+    private string error;
+
+
+    Konfigurator Konfig = new Konfigurator();
+    KonfiguratorCheckliste.Merkmal ActiveMerkmal;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Produktgruppen = new Produktgruppen();
+
+        Konfig.Modus = (Konfigurator.Modi)Modus;
+
+        switch (Modus)
+        {
+            case 0: // frei
+                break;
+            case 1: // Kunde ohne Aktion
+                if (SourceID > 0)
+                {
+                    await LadeKunde();
+                }
+                break;
+            case 2: // Aktion
+                if (SourceID == 0)
+                {
+                    await LadeAktion();
+                }
+                else
+                {
+                    await LadeKonfiguration();
+                }
+                break;
+        }
+    }
+
+    /// <summary>
+    /// lädt über die OrderbaseWebApi einen Kunden
+    /// </summary>
+    /// <returns></returns>
+    private async Task LadeKunde()
+    {
+        try
+        {
+            Konfig.Kunde = await KundeService.GetByID(SourceID);
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            StateHasChanged();
+        }        
+    }
+    /// <summary>
+    /// laden der zulestzt gespeicherten Aktion
+    /// </summary>
+    /// <returns></returns>
+    private Task LadeAktion()
+    {
+        Konfig.Aktion = System.Text.Json.JsonSerializer.Deserialize<Aktion>(System.IO.File.ReadAllText(Pfade.AktuelleAktion));
+        return Task.CompletedTask;
+    }
+    /// <summary>
+    /// Lade die ausgewählte Version der aktuellen Aktion
+    /// </summary>
+    /// <returns></returns>
+    private Task LadeKonfiguration()
+    {
+        string filename;
+        if (Version == 0)
+        {
+            filename = new FileMan() { FileRoutePath = Pfade.Konfigurationenpfad }.GetLastFileVersion("Konfig" + SourceID + ".json");
+        }
+        else
+        {
+            filename = new FileMan() { FileRoutePath = Pfade.Konfigurationenpfad }.GetLastFileVersion("Konfig" + SourceID + "_" + Version + ".json");
+        }
+        if (System.IO.File.Exists(filename))
+        {
+            Konfig = System.Text.Json.JsonSerializer.Deserialize<Konfigurator>(System.IO.File.ReadAllText(filename));
+            Konfig.Checkliste.SetFeldinhaltByUniqueOptionen();
+            CreateMerkmalgruppenMenu();
+            CreateSelectedMerkmale();
+        }
+        else
+        {
+            LadeAktion();
+        }
+        return Task.CompletedTask;
+    }
+    /// <summary>
+    /// Laden aller Checklisten der ausgewählten Produktgruppe
+    /// </summary>
+    /// <param name="produktgruppe"></param>
+    /// <returns></returns>
+    private Task LadeChecklisten(string produktgruppe)
+    {
+        Checklisten checklisten = new Checklisten();
+        Konfig.Produktgruppe = produktgruppe;
+        checklisten.ReadByProduktgruppe(produktgruppe);
+        Checklistencodes = new List<string>();
+        foreach (KonfiguratorCheckliste checkliste in checklisten.Liste)
+        {
+            Checklistencodes.Add(checkliste.ChecklistCode);
+        }
+        return Task.CompletedTask;
+    }
+    /// <summary>
+    /// Trigger Checkliste Changed -> ruftKonfigurationStart auf
+    /// </summary>
+    /// <returns></returns>
+    private Task ChecklistChanged()
+    {
+        if (AktuellerChecklistencode != null)
+            KonfigurationStart(AktuellerChecklistencode);
+        return Task.CompletedTask;
+    }
+    /// <summary>
+    /// Initialisiert den Konfigurator für die augewählte Checkliste
+    /// </summary>
+    /// <param name="checklistcode"></param>
+    /// <returns></returns>
+    private Task KonfigurationStart(string checklistcode)
+    {
+        Konfig.AssignChecklist(checklistcode);
+        CreateMerkmalgruppenMenu();
+        return Task.CompletedTask;
+    }
+
+    private Task MerkmalOptionSelected(KonfiguratorCheckliste.Merkmal merkmal)
+    {
+        UpdateMerkmale(merkmal);
+        return Task.CompletedTask;
+    }
+    private Task MerkmalFeldChanged(KonfiguratorCheckliste.Merkmal merkmal)
+    {
+        UpdateMerkmale(merkmal);
+        return Task.CompletedTask;
+    }
+    private Task GruppeClicked(string merkmalgruppeid)
+    {
+        CreateMerkmalliste(merkmalgruppeid);
+        return Task.CompletedTask;
+    }
+
+    private void ResetMerkmalliste()
+    {
+        SelectedMerkmalgruppe = null;
+        Merkmaltems?.Clear();
+    }
+    private Task CreateMerkmalliste(string merkmalgruppeid)
+    {
+        SelectedMerkmalgruppe = Konfig.GetMerkmalgruppeByID(merkmalgruppeid);
+        Merkmaltems = SelectedMerkmalgruppe.Merkmale;
+        return Task.CompletedTask;
+    }
+    private Task CreateMerkmalgruppenMenu()
+    {
+        GroupItems = new Dictionary<string, string>();
+        foreach (KonfiguratorCheckliste.Merkmalgruppe merkmalgruppe in Konfig.Checkliste.Merkmalgruppen)
+        {
+            AddGroupItem(merkmalgruppe.ID.ToString(), merkmalgruppe.Text);
+        }
+        ResetMerkmalliste();
+        return Task.CompletedTask;
+    }
+    private Task CreateSelectedMerkmale()
+    {
+        SelectedMerkmale = new();
+        foreach (KonfiguratorCheckliste.Merkmalgruppe merkmalgruppe in Konfig.Checkliste.Merkmalgruppen)
+        {
+            UpdateSelectedMerkmal(merkmalgruppe.ID);
+        }
+        return Task.CompletedTask;
+    }
+
+    private Task UpdateMerkmale(KonfiguratorCheckliste.Merkmal merkmal)
+    {
+        ActiveMerkmal = merkmal;
+        // überprüfen, ob die Auswahl ein anderes Merkmal excludiert oder includiert und in den entsprechenden Optionen enablen oder disablen
+        Konfig.EnableDisable(merkmal);
+        UpdateSelectedMerkmal(merkmal.MerkmalgruppeID);
+
+        return Task.CompletedTask;
+    }
+
+    private async Task DruckeAngebot()
+    {
+        await PrintDocument();
+    }
+
+    private Task PrintDocument()
+    {
+        if (Konfig.Aktion.ID > 0)
+            // await IJS.InvokeAsync<object>("open", new object[] { "/Angebot/" + Konfig.Aktion.ID +"/" + Konfig.Version, "_blank" });
+            NavMan.NavigateTo("/Angebot/" + Konfig.Aktion.ID +"/" + Konfig.Version);
+        return Task.CompletedTask;
+    }
+
+    private Task SpeicherKonfiguration()
+    {
+        Konfig.Speichern();
+        return Task.CompletedTask;
+    }
+
+    #region Modal 
+    bool showModal = false;
+    bool showPic = false;
+    bool editText = false;
+    string hinweisTitel;
+    string[] hinweisText;
+    string bilddatei;
+    string textInput;
+
+    private void ShowHinweis(KonfiguratorCheckliste.Merkmal merkmal)
+    {
+        hinweisTitel = merkmal.Text;
+        hinweisText = merkmal.Hinweis.Split(new string[] { "\r\n", "\r", "\n"}, StringSplitOptions.None);
+        showModal = true;
+    }
+
+    private void ShowPicture(KonfiguratorCheckliste.Merkmal merkmal)
+    {
+        string bildpfad;
+        if (merkmal.IsOptionCase && merkmal.SelectedOption.Exists && merkmal.SelectedOption.HasBild)
+        {
+            hinweisTitel = string.Concat(merkmal.Text, " ", merkmal.SelectedOption.Bezeichnung);
+            bildpfad = string.Concat(Pfade.Bilderpfad, Konfig.Checkliste.ChecklistCode, @"\", merkmal.SelectedOption.Bild);
+            var imageBytes = File.ReadAllBytes(bildpfad);
+            bilddatei = Convert.ToBase64String(imageBytes);
+            bilddatei = string.Format("data:image/png;base64,{0}", bilddatei);
+            showPic = true;
+        }
+    }
+
+    private void EditText(KonfiguratorCheckliste.Merkmal merkmal)
+    {
+        ActiveMerkmal = merkmal;
+        hinweisTitel = merkmal.Text;
+        textInput = merkmal.Feldinhalt;
+        editText = true;
+    }
+
+    private void ModalClose()
+    {
+        if (editText)
+        {
+            ActiveMerkmal.Feldinhalt = textInput;
+        }
+        showModal = false;
+        showPic = false;
+        editText = false;
+    }
+
+    private void ModalOk()
+    {
+        showModal = false;
+        showPic = false;
+        editText = false;
+    }
+    #endregion
+
+    private bool togglePricesStatus = true;
+
+    private string PricesCssClass => togglePricesStatus ? "prices-off" : "prices-on";
+
+    private void togglePrices()
+    {
+        togglePricesStatus = !togglePricesStatus;
+    }
+    
+}
+
+ 

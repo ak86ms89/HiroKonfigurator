@@ -1,0 +1,215 @@
+/*.kunde {
+    border: 1px solid var(--aktiviert-color);
+    color: var(--aktiviert-color);
+    text-align: left;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.angebotspreis {
+    color: var(--aktiviert-color);
+    border-bottom: 1px solid var(--brd-color);
+}
+.produktmenu {
+    border: 1px solid var(--aktiviert-color);
+    background-color: var(--bg-color);
+    padding: 10px;
+}
+.checklistauswahl {
+    float: right;
+    width: 100%;
+}
+.gruppenauswahl {
+    border-right: 1px solid var(--brd-color);
+    padding: 10px;
+    background-color: var(--bg-color);
+    float: left;
+    width:450px;
+}
+.gruppenmerkmale {
+    padding-left: 15px;
+    float: left;
+    flex-grow: 1;
+}
+
+.gruppenmerkmale:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.lst-gruppenmerkmal {
+   padding:5px;
+}
+
+.btn-gruppenmerkmal{
+    width:100%;
+}
+
+.merkmale {
+    background-color: var(--bg-color);
+    margin: 0px;
+}
+.merkmalbezeichnung {
+    margin-left: 10px;
+    float: left;
+    width: 30%;
+}
+.merkmalauswahl {
+    float: left;
+    width: 30%;
+}
+.merkmalpreis {
+    float: left;
+    width: 20%;
+}
+.merkmalpreisfeld {
+    text-align: right;
+    padding-right: 10px;
+}
+.merkmalbild {
+    padding: 5px;
+    float: left;
+    width: 20%;
+    border-left: 1px solid var(--brd-color);
+}
+.select{
+    width:100%;
+    height:1.5rem;
+    text-align:center;
+}
+    */
+.auswahloffen {
+    background-color: var(--auswahloffen-color);
+}
+.auswahlerfolgt {
+    background-color: var(--auswahlerfolgt-color);
+}
+/*
+.inputboxmerkmal {
+    width: 100px;
+}
+.inputbox {
+    height:1.5rem;
+}
+*/
+.limitok {
+    background-color: var(--limitok-color);
+}
+.limitnichtok {
+    background-color: var(--limitnichtok-color);
+}
+
+
+.konfigOK {
+    color: var(--vollstaendig-color);
+    background-color: var(--weiss);
+    font-weight: 600;
+    padding-left: 15px;
+}
+.konfigNo {
+    color: var(--unvollstaendig-color);
+    background-color: var(--weiss);
+    font-weight:600;
+    padding-left: 15px;
+}
+.accordion-item {
+    border-radius: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+}
+.accordion-header {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+}
+    .accordion-header .accordion-button {padding-top:10px;
+                                         padding-bottom:10px;
+    }
+    .accordion-header .accordion-button,
+    .konfigitem {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+/*
+.in-out {
+    border-bottom: 1px solid var(--brd-color);
+    padding: 10px;
+}*/
+
+.statusholder {
+    position: fixed !important;
+    bottom: 0;
+    left: 30px;
+    right: 30px;
+    pointer-events:none;
+}
+.status {
+    padding: 30px 30px 0px;
+    box-shadow: 0 0 10px rgba(0,0,0,.25);
+    z-index: 10;
+    background-color:#fff ;
+    pointer-events:all;
+ 
+}
+@media(pointer: fine) {
+    .status {
+        transform: translateY(55px);
+
+    }
+        .status:hover,
+        .status:focus {
+            transform: translateY(0)
+        }
+
+}
+
+
+.statusindicator {
+    margin-left: auto !important;
+    color: #fff !important;
+    
+    margin-bottom: 15px;
+    padding:5px 10px;
+    display: block;
+    color:#fff;
+    width:100%; text-align: center
+}
+
+.statusindicator.konfigNo {
+    background-color: var(--unvollstaendig-color)
+}
+
+.statusindicator.konfigOK {
+    background-color: var(--vollstaendig-color)
+}
+
+.merkmalpreis p {
+    opacity: 0;
+    transition: opacity:.25s
+}
+.merkmalpreis.prices-off p { opacity:0}
+.merkmalpreis.prices-on p {
+    opacity: 1
+}
+.merkmalpreis:hover p {
+    opacity: 1
+}
+.mainframe {
+    margin-bottom: 120px;
+}
+
+@media(min-width:768px){
+    .mainframe {
+        margin-bottom: 60px;
+    }
+
+}
+
+.btn-print.kongigNo { opacity: .25}

@@ -1,0 +1,67 @@
+body {
+    font-style: normal;
+    font-family: Arial;
+    font-size: 12pt;
+    background-color:whitesmoke;
+}
+
+@media print
+    {
+        body {
+            margin: 0;
+            color: #000;
+            background-color: #fff;
+        }
+}
+.document{
+    margin-left:1.41cm;
+    margin-right:1cm;
+    margin-top:1.69cm;
+    margin-bottom:2cm;
+}
+
+.ln-voll-waagerecht {
+    width: 100%;
+    border-bottom: 1px solid black;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.DocHeader {
+    height: 100px;
+    width:100%;
+    border-bottom:1px solid black;
+}
+
+.logo{
+    float:right;
+    max-height:100%;
+    width: auto;
+}
+
+.firmenname {
+    text-decoration: underline;
+    font-size: 8pt;
+    margin-top:8pt;
+}
+
+.kundenadresse {
+  line-height:0.5;
+  float:left;
+  margin-top: 20px;
+}
+.kontaktdaten {
+  margin-top: 20px;
+}
+p.daten{
+    float:right;
+}
+
+.labelleft{
+    float:left;
+    text-align:left;
+}
+.labelright {
+    float: right;
+    text-align:right;
+}

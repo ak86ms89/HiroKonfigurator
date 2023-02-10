@@ -1,0 +1,1 @@
+C:\AK86\Hiro\Konfigurator\app3\HiroKonfig\HiroKonfig.csproj;x64

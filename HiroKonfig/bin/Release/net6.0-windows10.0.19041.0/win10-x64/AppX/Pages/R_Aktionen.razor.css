@@ -1,0 +1,58 @@
+/*.title {
+    color: var(--title-color);
+    font-weight: bold;
+    background-color: var(--bg-color);
+}
+.hauptmenu {
+    border: 1px solid var(--aktiviert-color);
+    background-color: var(--bg-color);
+    padding: 10px;
+}
+.gruppentitle {
+    color: var(--title-color);
+    border-bottom: 1px solid var(--brd-color);
+}
+.mainframe {
+    background-color: var(--bg-color);
+}
+
+.workframe {
+    padding-left: 15px;
+}
+.gruppenmerkmale {
+    padding-left: 10px;
+    float: left;
+    width: 85%;
+}
+
+@media screen and (max-width:600px) {
+    .column {
+        width: 100%;
+    }
+}
+.inputbox {
+    height:1.5rem;
+}
+.aktiviert {
+    color: var(--aktiviert-color);
+}
+.deaktiviert {
+    color: var(--deaktiviert-color);
+}
+.labelright{
+    text-align:right;
+}
+.labelleft {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.liste {
+    background-color: var(--listen-bg-color);
+    margin-left:20px;
+    margin-top:20px;
+    width:100%;
+}
+    */
+
+

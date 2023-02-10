@@ -1,0 +1,87 @@
+﻿@layout BlankLayout
+
+@page "/Angebot/{AktionsID:int}/{Version:int}"
+
+@inject IJSRuntime JS
+
+
+<body>
+    <div class="document">
+        <div class="DocHeader">
+            <img class="logo" src="images/HiroLogo.jpg" />
+        </div>
+        <div class="row">
+            <div class="col-md-8 kundenadresse">
+                <div>
+                    <p class="firmenname">HIRO LIFT, Postfach 10 14 71, 33514 Bielefeld</p>
+                    <p>@Konfig.Aktion.VKBeleg.KundenoderAdressenName</p>
+                    <p>@Konfig.Aktion.VKBeleg.KundenoderAdressenStrasse</p>
+                    <p>@Konfig.Aktion.VKBeleg.PLZ.Code @Konfig.Aktion.VKBeleg.KundenoderAdressenOrt</p>
+                </div>
+            </div>
+            <div class="col-md-4 kontaktdaten">
+                <div>
+                    <div class="row">
+                        <div class="col-md-3">Datum:</div>
+                        <div class="col-md-9">@System.DateTime.Now.ToShortDateString()</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Verkäufer:</div>
+                        <div class="col-md-9">@Konfig.Aktion.VKBeleg.Verkaeufer</div>
+                    </div>
+                </div>
+             </div>
+        </div>
+        <div class="ln-voll-waagerecht"></div>
+        <h5>Angebot - @Konfig.Aktion.VKBeleg.Belegnr</h5>
+        <div class="ln-voll-waagerecht"></div>
+    </div>
+
+</body>
+
+@code {
+
+    [Parameter]
+    public int AktionsID { get; set; } = 0;
+    [Parameter]
+    public int Version { get; set; } = 0;
+
+    Konfigurator Konfig = new Konfigurator();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LadeKonfiguration();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstrender)
+    {
+        if (firstrender)
+        {
+            await Print();
+
+            await JS.InvokeVoidAsync("history.back");
+        }
+    }
+    private async Task LadeKonfiguration()
+    {
+        string filename;
+        if (Version == 0)
+        {
+            filename = new FileMan() { FileRoutePath = Pfade.Konfigurationenpfad }.GetLastFileVersion("Konfig" + AktionsID + ".json");
+        }
+        else
+        {
+            filename = new FileMan() { FileRoutePath = Pfade.Konfigurationenpfad }.GetLastFileVersion("Konfig" + AktionsID + "_" + Version + ".json");
+        }
+        if (System.IO.File.Exists(filename))
+        {
+            Konfig = System.Text.Json.JsonSerializer.Deserialize<Konfigurator>(System.IO.File.ReadAllText(filename));
+        }
+        await Task.CompletedTask;
+    }
+
+    private async Task Print()
+    {
+        await JS.InvokeVoidAsync("printPage");
+    }
+}
+

@@ -1,0 +1,372 @@
+﻿@page "/kunde"
+
+@inject NavigationManager NavMan
+<style>
+  
+</style>
+<div class="mainframe">
+    <div class="row gap">
+        <div class="col-12">
+        <h1>Kundendaten</h1>
+        </div>
+    </div>
+    <div class="row gap">
+        <div class="col-12">
+            <div class="clientdetails details">
+                <div class="row">
+                    <div class="col-12">
+                         <p>@aktion.VKBeleg.KundenoderAdressenName</p>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6 col-xl-3">
+                                <p>Straße: <b>@aktion.VKBeleg.KundenoderAdressenStrasse</b></p>
+                            </div>
+                            <div class="col-6 col-xl-3">
+                                <p>Ort: <b>@aktion.VKBeleg.PLZ.Code @aktion.VKBeleg.KundenoderAdressenOrt</b></p>
+                            </div>
+                            <div class="col-6 col-xl-3">
+                                <p>Telefon: <b>@aktion.VKBeleg.KundenoderAdressenStrasse</b></p>
+                            </div>
+                            <div class="col-6 col-xl-3">
+                                <p>E-Mail: XXX</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="appointmentdetails details">
+                <div class="row">
+                        <div class="col-6 col-lg-3">
+                            <p>Beleg: <b>@aktion.VKBeleg.Herkunftsarttxt</b></p>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <p>Belegnr: <b>@aktion.VKBeleg.Belegnr</b></p>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <p>Aktion: <b>@aktion.Aktionstyp.Code</b></p>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <p>Datum: <b>@aktion.Startdatum.ToShortDateString()</b></p>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <p>Zeit: <b>@aktion.Startzeit h - @aktion.Endzeit h</b></p>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <p>Aktions-ID: <b>@aktion.ID</b></p>
+                        </div>
+                         
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="row gap">
+        <div class="col-12">
+           
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>
+                                Datum
+                            </th>
+                            <th>
+                                Uhrzeit
+                            </th>
+                            <th>
+                                Version
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Bruttopreis
+                            </th>
+                            <th>
+                                Rabatt %
+                            </th>
+                            <th>
+                                Rabatt
+                            </th>
+                            <th>
+                                Nettopreis
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <!--
+                    <tr>
+                        <td>
+                            01.01.2023
+                        </td>
+                        <td>
+                            12:21
+                        </td>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            <span class="state">
+                                unvollständig
+                            </span>
+                        </td>
+                        <td>
+                            -- €
+                        </td>
+                        <td>
+                            -- %
+                        </td>
+                        <td>
+                            -- €
+                        </td>
+                        <td>
+                            -- €
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            01.01.2023
+                        </td>
+                        <td>
+                            12:21
+                        </td>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            <span class="state fulfilled">
+                                vollständig
+                            </span>
+                        </td>
+                        <td>
+                            -- €
+                        </td>
+                        <td>
+                            -- %
+                        </td>
+                        <td>
+                            -- €
+                        </td>
+                        <td>
+                            -- €
+                        </td>
+                    </tr>
+                    -->
+                     @if (@Konfigurationen != null)
+                        {
+                            @foreach (Konfigurator konfiguration in @Konfigurationen)
+                            {
+                            <tr>
+                                <td width="100"><button @onclick="() => OnKonfigClick(konfiguration)">....</button></td>
+                                <td width="120">@konfiguration.Datum.ToShortDateString()</td>
+                                <td width="100">@konfiguration.Datum.ToShortTimeString()</td>
+                                <td width="150">@konfiguration.Version</td>
+                                <td width="200" class="@(@konfiguration.IsKonfigurationVollstaendig ? " vollstaendig " : " unvollstaendig")">@(@konfiguration.IsKonfigurationVollstaendig?"vollständig":"unvollständig")</td>
+                                <td width="250">@(@konfiguration.IsKonfigurationVollstaendig?@konfiguration.AngebotspreisVorRabatt.ToString("N2") + " €":"-- €")</td>
+                                <td width="250">@(@konfiguration.IsKonfigurationVollstaendig?@konfiguration.Rabattprozent.ToString("N0") + " %":"-- %")</td>
+                                <td width="250">@(@konfiguration.IsKonfigurationVollstaendig?@konfiguration.Rabattbetrag.ToString("N2") + " €":"-- €")</td>
+                                <td width="250">@(@konfiguration.IsKonfigurationVollstaendig?@konfiguration.AngebotspreisInklRabatt.ToString("N2"):"-- €")</td>
+                            </tr>
+                            }
+                        }
+ 
+                </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+         <div class="col-auto  ml-auto">
+                     <button class="btn btn-blue" @onclick="NeueKonfiguration">Neue Konfiguration</button>
+                </div
+        <div class="col-auto">
+            <button class="btn btn-dark">
+                Einstellungen
+            </button>
+        </div>
+    </div>
+
+    <!--<div class="hauptmenu"> </div>
+    <div class="details">
+        <div class="kundendetails">
+            <div class="row">
+                <div class="col-6 kundendetailgruppe">
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="labelleft">Name:</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="labelleft">@aktion.VKBeleg.KundenoderAdressenName</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="labelleft">Straße:</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="labelleft">@aktion.VKBeleg.KundenoderAdressenStrasse</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="labelleft">Ort:</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="labelleft">@aktion.VKBeleg.PLZ.Code @aktion.VKBeleg.KundenoderAdressenOrt</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="labelleft">Telefon:</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="labelleft">@aktion.VKBeleg.VkKontaktpersonTelefon</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 kundendetailgruppe">
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="labelleft">Beleg:</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="labelleft">@aktion.VKBeleg.Herkunftsarttxt</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="labelleft">Belegnr:</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="labelleft">@aktion.VKBeleg.Belegnr</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="labelleft">Aktion:</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="labelleft">@aktion.Aktionstyp.Code</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="labelleft">Datum:</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="labelleft">@aktion.Startdatum.ToShortDateString()</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="labelleft">Zeit:</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="labelleft">@aktion.Startzeit h - @aktion.Endzeit h</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="labelleft">Aktions ID:</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="labelleft">@aktion.ID</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table class="liste">
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th>Datum</th>
+                            <th>Uhrzeit</th>
+                            <th>Version</th>
+                            <th>Status</th>
+                            <th>Bruttopreis</th>
+                            <th>Rabatt %</th>
+                            <th>Rabatt</th>
+                            <th>Nettopreis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (@Konfigurationen != null)
+                        {
+                            @foreach (Konfigurator konfiguration in @Konfigurationen)
+                            {
+                        <tr>
+                            <td width="100"><button @onclick="() => OnKonfigClick(konfiguration)">....</button></td>
+                            <td width="120">@konfiguration.Datum.ToShortDateString()</td>
+                            <td width="100">@konfiguration.Datum.ToShortTimeString()</td>
+                            <td width="150">@konfiguration.Version</td>
+                            <td width="200" class="@(@konfiguration.IsKonfigurationVollstaendig ? " vollstaendig " : " unvollstaendig")">@(@konfiguration.IsKonfigurationVollstaendig?"vollständig":"unvollständig")</td>
+                            <td width="250">@(@konfiguration.IsKonfigurationVollstaendig?@konfiguration.AngebotspreisVorRabatt.ToString("N2") + " €":"-- €")</td>
+                            <td width="250">@(@konfiguration.IsKonfigurationVollstaendig?@konfiguration.Rabattprozent.ToString("N0") + " %":"-- %")</td>
+                            <td width="250">@(@konfiguration.IsKonfigurationVollstaendig?@konfiguration.Rabattbetrag.ToString("N2") + " €":"-- €")</td>
+                            <td width="250">@(@konfiguration.IsKonfigurationVollstaendig?@konfiguration.AngebotspreisInklRabatt.ToString("N2"):"-- €")</td>
+                        </tr>
+                            }
+                        }
+                     </tbody>
+                </table>
+            </div>
+        </div>
+    </div>-->
+</div>
+
+@code {
+
+    private Aktion aktion;
+
+    private List<Konfigurator> Konfigurationen;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LadeKunde();
+    }
+
+    private Task LadeKunde()
+    {
+        LadeAktuelleAktion();
+        LadeKonfigurationen();
+        return Task.CompletedTask;
+    }
+    private Task LadeAktuelleAktion()
+    {
+        aktion = (Aktion)new DataLoader().Lade<Aktion>(Pfade.AktuelleAktion);
+        return Task.CompletedTask;
+    }
+    private Task LadeKonfigurationen()
+    {
+        string[] filenames = new FileMan { FileRoutePath = Pfade.Konfigurationenpfad}.GetFiles("Konfig" + aktion.ID);
+        Konfigurationen = new List<Konfigurator>();
+        foreach (string fname in filenames)
+        {
+            Konfigurationen.Add(System.Text.Json.JsonSerializer.Deserialize<Konfigurator>(System.IO.File.ReadAllText(fname)));
+        }
+        return Task.CompletedTask;
+    }
+
+    private void NeueKonfiguration()
+    {
+        NavMan.NavigateTo("konfigurator/2/0");
+    }
+
+    private void LetzteKonfiguration()
+    {
+        NavMan.NavigateTo("konfigurator/2/" + aktion.ID);
+    }
+
+    private void BestehendeKonfiguration(Konfigurator konfig)
+    {
+        NavMan.NavigateTo("konfigurator/2/" + aktion.ID + "/" + konfig.Version);
+    }
+
+    private void OnKonfigClick(Konfigurator konfig)
+    {
+        BestehendeKonfiguration(konfig);
+    }
+}

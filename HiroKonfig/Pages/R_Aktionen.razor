@@ -1,0 +1,133 @@
+﻿@page "/aktionen"
+@inject NavigationManager NavMan
+@inject IAktionService AktionService
+
+
+
+<div class="mainframe">
+    <div class="row gap">
+        <div class="col-12">
+         <h1>Aktionen</h1>
+        </div>
+    </div>
+
+    <div class="row gap">
+        <div class="col-12">
+            <div class="hauptmenu">
+                <button class="btn btn-dark" @onclick="() => OnAktualisierenClick()">Aktualisieren</button>
+            </div>
+        </div>
+    </div>
+                  
+    @if (!string.IsNullOrEmpty(error))
+        {
+            <div class="row gap">
+                    <div class="col-12">
+                        <div class="details">
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="btn-close" data-dismiss="alert" @onclick="@(() => error=null)">&times;</button>
+                                <strong>Fehler: </strong>@error
+                            </div>
+                             </div>
+                    </div>
+             </div>
+        }
+    <div class="row gap">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th> </th>
+                                        <th>Datum</th>
+                                        <th>Uhrzeit</th>
+                                        <th>Aktion</th>
+                                        <th>Belegnr</th>
+                                        <th>Kunde</th>
+                                        <th>Adresse</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (@Aktionen != null)
+                                    {
+                                        @foreach (Aktion aktion in @Aktionen)
+                                        {
+                                            <tr>
+                                                <td valign="middle" width="100"><button id=@aktion.ID.ToString() @onclick="() => OnKundenClick(aktion)" class="btn btn-coral">Aktion auswählen</button></td>
+                                    <td width="120"><b>@aktion.Startdatum.ToShortDateString()</b></td>
+                                    <td width="100">@aktion.Startzeit</td>
+                                                <td width="150">@aktion.Aktionstyp.Code</td>
+                                                <td width="250">@aktion.VKBeleg.Belegnr</td>
+                                    <td width="250"><b>@aktion.VKBeleg.KundenoderAdressenName</b></td>
+                                                <td>@aktion.VKBeleg.KundenoderAdressenStrasse  -  @aktion.VKBeleg.PLZ.Code.Trim() @aktion.VKBeleg.KundenoderAdressenOrt</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+@code 
+{
+    private Usersettings UserSettings;
+    private List<Aktion> Aktionen;
+    private string JsonStream;
+    private string error;
+
+    protected override async Task OnInitializedAsync()
+    {   
+        await LadeAktionen();
+    }
+    private Task LadeAktionen()
+    {
+        Pfade.Init();
+        if (System.IO.File.Exists(Pfade.Aktionen))
+            Aktionen = System.Text.Json.JsonSerializer.Deserialize<List<Aktion>>(System.IO.File.ReadAllText(Pfade.Aktionen)).OrderBy(d => d.Startdatum).ThenBy(d => d.Startzeit).ToList();
+        else
+            Aktionen = new List<Aktion>();
+        return Task.CompletedTask;
+    }
+
+    private Task SpeicherAktion(Aktion aktion)
+    {
+        string jsonstream = System.Text.Json.JsonSerializer.Serialize<Aktion>(aktion);
+        System.IO.File.WriteAllText(Pfade.AktuelleAktion, jsonstream);
+        return Task.CompletedTask;
+    }
+
+    private async Task OnAktualisierenClick()
+    {
+        await Aktualisiere();
+        await LadeAktionen();
+    }
+    private Task OnKundenClick(Aktion aktion)
+    {
+        SpeicherAktion(aktion);
+        NavMan.NavigateTo("kunde");
+        return Task.CompletedTask;
+    }
+
+    public async Task Aktualisiere()
+    {
+        try
+        {
+            Usersettings usets = new Usersettings();
+            usets.Lade();
+            string aktionen = await AktionService.GetByTypNameJson(2, usets.Benutzer);
+            if (aktionen != null)
+            {
+                File.Delete(Pfade.Aktionen);
+                File.AppendAllText(Pfade.Aktionen, aktionen);
+            }
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            StateHasChanged();
+        }
+    }
+  
+}

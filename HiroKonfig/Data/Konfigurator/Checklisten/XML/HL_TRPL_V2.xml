@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Doc>
+	<Header>
+		<Code>HL_TRPL_V2</Code>
+		<Produktgruppe>Treppenlift</Produktgruppe>
+	</Header>
+	<Merkmalgruppe ID="MG1" Text="Stuhl">
+		<Merkmal ID="MG1Stuhltyp" Text="Ausführung" Typ="Option">
+			<Optionen>
+				<Option Code="155" Text="155 - gerade Anlage" Preis="1000,00"></Option>
+				<Option Code="160" Text="160 - räumliche Anlage" Preis="1500,00"></Option>
+				<Option Code="260" Text="260 - Stehstuhl" Preis="750,00"></Option>
+				<Option Code="G160" Text="gebrauchter Stuhl" Preis="500,00"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Modell" Text="Modell" Typ="Option">
+			<Optionen>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Stuhltyp" Option="260"></ExcludeSelection>
+				</Exclude>
+				<Option Code="Q">
+				</Option>
+				<Option Code="QB" Text="QB keine Waagerechtfahrt">
+				</Option>
+				<Option Code="QN">
+				</Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Tragkraft" Text="Tragfähigkeit" Typ="Option">
+			<Optionen>
+				<Option Code="135" Text="135 kg" Preis="0,00"></Option>
+				<Option Code="155" Text="150 kg" Preis="500,00"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Drehfunktion" Text="Drehbar" Typ="Option">
+			<Optionen>
+				<Option Code="Automatisch" Preis="350,00"></Option>
+				<Option Code="Ohne" Preis="0,00"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Sitzbreite" Text="Sitzfläche (mm)" Typ="Option">
+			<Optionen>
+				<Option Code="400" Text="400 (Standard)"></Option>
+				<Option Code="520"></Option>
+				<Option Code="560"></Option>
+				<Option Code="600"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Fussbrett" Text="Fußbrett" Typ="Option">
+			<Optionen>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Stuhltyp" Option="260"></ExcludeSelection>
+				</Exclude>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Stuhltyp" Option="G160"></ExcludeSelection>
+				</Exclude>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Modell" Option="QB"></ExcludeSelection>
+				</Exclude>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Modell" Option="QN"></ExcludeSelection>
+				</Exclude>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG2" MerkmalID="MG2FBAusfuehrung" Option="innen"></ExcludeSelection>
+				</Exclude>
+				<Option Code="STANDARD" Text="240 x 316 mm (standard)"></Option>
+				<Option Code="FU240396" Text="320 x 316 mm" Preis="100,00"></Option>
+				<Option Code="FU320316" Text="340 x 316 mm" Preis="150,00"></Option>
+				<Option Code="FU340316ST" Text="400 x 316 mm" Preis="200,00"></Option>
+				<Option Code="FU400316" Text="400 x 440 mm" Preis="250,00"></Option>
+				<Option Code="FU400440" Text="Erhöhung um 50 mm" Preis="1000,00"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Gurt" Text="Gurt mit Kontakt" Typ="Option">
+			<Optionen>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Stuhltyp" Option="G160"></ExcludeSelection>
+				</Exclude>
+				<Option Code="Ja" Preis="100,00"></Option>
+				<Option Code="Nein"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Warnsignal" Text="Warnsignal" Typ="Option">
+			<Optionen>
+				<Option Code="ohne"></Option>
+				<Option Code="akustisch" Preis="100,00"></Option>
+				<Option Code="optisch" Preis="150,00"></Option>
+				<Option Code="akkustischoptisch" Text="akustisch + optisch" Preis="200,00"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Befehlsgeber" Text="Fahrsteuerung" Typ="Option">
+			<Optionen>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Stuhltyp" Option="G160"></ExcludeSelection>
+				</Exclude>
+				<Option Code="ohne"></Option>
+				<Option Code="Joystick" Bild="C:/Bilder/Joystick.jpg" Preis="250,00" Kategorie="E"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Befehlsgeberposition" Text="Joystickposition" Typ="Option">
+			<Optionen>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Stuhltyp" Option="G160"></ExcludeSelection>
+				</Exclude>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Befehlsgeber" Option="ohne"></ExcludeSelection>
+				</Exclude>
+				<Option Code="links">
+				</Option>
+				<Option Code="rechts">
+				</Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Schlüssel" Text="Schlüssel" Typ="Option">
+			<Optionen>
+				<Exclude>
+					<ExcludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Stuhltyp" Option="G160"></ExcludeSelection>
+				</Exclude>
+				<Option Code="Ja" Preis="20,00"></Option>
+				<Option Code="Nein"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Farbe" Text="Farbe Verkleidung" Typ="Option">
+			<Optionen>
+				<Option Code="7035" Text="lichtgrau (7035)"></Option>
+				<Option Code="9001" Text="chremeweiß (9001)- standard"></Option>
+				<Option Code="9005" Text="schwarz (9005)"></Option>
+				<Option Code="9006" Text="silber (9006)"></Option>
+				<Option Code="9007" Text="aluminiumgrau (9007)"></Option>
+				<Option Code="9010" Text="reinweiß (9010)"></Option>
+				<Option Code="DB 703" Text="anthrazit"></Option>
+				<Option Code="Sonderfarbe" Preis="500,00"></Option>
+				<Option Code="Wahl" Text="7 Exklusivfarben" Preis="1000,00"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Farbe" Text="Farbe Sitzschale + Armlehne" Typ="Option">
+			<Optionen>
+				<Option Code="Chremeweiss"></Option>
+				<Option Code="Schwarz"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Polstermaterial" Text="Polstermaterial" Typ="Option">
+			<Optionen>
+				<Option Code="Leder" Preis="500,00"></Option>
+				<Option Code="Kunstleder" Preis="150,00"></Option>
+				<Option Code="Microfaser" Preis="50,00"></Option>
+				<Option Code="Filz"></Option>
+				<Option Code="Flachgewebe grob"></Option>
+				<Option Code="Flachgewebe synthetisch"></Option>
+				<Option Code="Flachgewebe Polyester"></Option>
+				<Option Code="Wahl" Preis="500,00"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG1Polster" Text="Polsterfarbe" Typ="Option">
+			<Optionen>
+				<Option Code="L1" Text="Stein">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Leder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="L2" Text="Anthrazit">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Leder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="L3" Text="Vanille">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Leder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="L4" Text="Sand">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Leder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="L5" Text="Cognac">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Leder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="L6" Text="Schoko">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Leder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="L7" Text="Bordeaux">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Leder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="L8" Text="Moos">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Leder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="L9" Text="Marine">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Leder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="L10" Text="Schwarz">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Leder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="K1" Text="Stein">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Kunstleder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="K2" Text="Anthrazit">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Kunstleder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="K3" Text="Mandel">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Kunstleder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="K4" Text="Schoko">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Kunstleder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="K5" Text="Rubin">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Kunstleder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="K6" Text="Bordeaux">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Kunstleder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="K7" Text="Schwarz">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Kunstleder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="K8" Text="Weiss">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Kunstleder"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="M1" Text="Stein">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Microfaser"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="M2" Text="Anthrazit">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Microfaser"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="M3" Text="Vanille">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Microfaser"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="M4" Text="Mandel">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Microfaser"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="M5" Text="Rubin">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Microfaser"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="M6" Text="Moos">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Microfaser"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="M7" Text="Marine">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Microfaser"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="F1" Text="Stein Linienoptik">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Filz"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="F2" Text="Stein Karooptik">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Filz"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="F3" Text="Anthrazit Linienoptik">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Filz"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="F4" Text="Anthrazit Karooptik">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Filz"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="F5" Text="Marine Linienoptik">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Filz"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="F6" Text="Marine Karooptik">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Filz"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FG1" Text="Silber">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe grob"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FG2" Text="Stein">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe grob"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FG3" Text="Vanille">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe grob"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FG4" Text="Minze">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe grob"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FG5" Text="Aqua">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe grob"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FG6" Text="Lavendel">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe grob"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FP1" Text="Anthrazit">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe Polyester"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FP2" Text="Sand">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe Polyester"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FP3" Text="Espresso">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe Polyester"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FP4" Text="Rubin">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe Polyester"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FP5" Text="Aqua">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe Polyester"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FP6" Text="Schwarz">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe Polyester"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FS1" Text="Silber">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe synthetisch"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FS2" Text="Anthrazit">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe synthetisch"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FS3" Text="Espresso">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe synthetisch"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FS4" Text="Bordeaux">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe synthetisch"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FS5" Text="Indigo">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe synthetisch"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="FS6" Text="Schwarz">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Flachgewebe synthetisch"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="W1" Text="Preisgruppe 1 (33 Bezüge)">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Wahl"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="W2" Text="Preisgruppe 2 (6 Filzbezüge)">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Wahl"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="W3" Text="Preisgruppe 3 (10 Lederbezüge)">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Wahl"></IncludeSelection>
+					</Include>
+				</Option>
+				<Option Code="W4" Text="2 Bezüge">
+					<Include>
+						<IncludeSelection MerkmalgruppeID="MG1" MerkmalID="MG1Polstermaterial" Option="Wahl"></IncludeSelection>
+					</Include>
+				</Option>
+			</Optionen>
+		</Merkmal>
+	</Merkmalgruppe>
+	<Merkmalgruppe ID="MG2" Text="Fahrbahn">
+		<Merkmal ID="MG2FBEtagen" Text="Etagen" Typ="Decimal"></Merkmal>
+		<Merkmal ID="MG2FBLaenge" Text="Länge [cm]" Typ="Decimal" Preis="5,00">
+			<Connectoren>
+				<Mengenlimiter MerkmalgruppeID="MG2" MerkmalID="MG2FBEtagen" Typ="0"  ProMenge="350"></Mengenlimiter> <!-- Min -->
+			</Connectoren>
+		</Merkmal>
+		<Merkmal ID="MG2FBStuetzen" Text="Treppenstützen" Typ="Decimal" ReadOnly="True" Preis="150,00" >
+			<Connectoren>
+				<Multiplikator MerkmalgruppeID="MG2" MerkmalID="MG2FBLaenge" Faktor="1" ProMenge="100"></Multiplikator>
+			</Connectoren>
+		</Merkmal>
+		<Merkmal ID="MG2FBOrientierung" Text="Orientierung" Typ="Option">
+			<Optionen>
+				<Option Code="links" Text="linke Treppenseite"></Option>
+				<Option Code="rechts" Text="rechte Trepppenseite"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG2FBAusfuehrung" Text="Ausführung" Typ="Option">
+			<Optionen>
+				<Option Code="innen"></Option>
+				<Option Code="außen" Preis="2000,00"></Option>
+				<Option Code="gerade"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG2Farbestreben" Text="Farbe Streben" Typ="Option">
+			<Optionen>
+				<Option Code="verzinkt" Text="Galvanisch verzinkt"></Option>
+			</Optionen>
+		</Merkmal>
+		<Merkmal ID="MG2FarbeStuetzen" Text="Farbe Stützen" Typ="Option">
+			<Optionen>
+				<Option Code="7035" Text="lichtgrau (7035)"></Option>
+				<Option Code="9001" Text="chremeweiß (9001) - standard"></Option>
+				<Option Code="9005" Text="schwarz (9005)"></Option>
+				<Option Code="9006" Text="silber (9006)"></Option>
+				<Option Code="9007" Text="aluminiumgrau (9007)"></Option>
+				<Option Code="9010" Text="reinweiß (9010)"></Option>
+				<Option Code="DB703" Text="anthrazit"></Option>
+				<Option Code="Verzinkt" Text="feuerverzinkt" Preis="500,00"></Option>
+				<Option Code="Sonderfarbe" Text="RAL K1" Preis="200,00"></Option>
+				<Option Code="Wahl" Text="7 Exklusivfarben" Preis="1000,00"></Option>
+			</Optionen>
+		</Merkmal>
+	</Merkmalgruppe>
+</Doc>

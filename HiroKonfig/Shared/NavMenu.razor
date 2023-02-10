@@ -1,0 +1,88 @@
+﻿<!--<div class="top-row ps-3 navbar navbar-dark">
+	<div class="container-fluid">
+		
+		
+	</div>
+</div>-->
+<nav class="navbar navbar-expand-lg navbar-right" >
+    <div class="container-fluid">
+    <a class="navbar-brand" href=""><img src="images/logo.svg" /></a>
+        <div title="Navigation menu" class="@NavMenuButtonClass navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+        <span class="menubar topbar"></span>
+        <span class="menubar middlebar"></span>
+        <span class="menubar bottombar"></span>
+    </div>
+    <style>
+
+        .navbar-toggler { position: relative; height: 40px; width: 40px;}
+        .navbar-toggler[aria-expanded="true"] { background-color:#f00;}
+        .navbar-toggler .menubar { position: absolute; left:5px; right:5px; height:4px; background-color: var(--blue); margin-top:-2px; transform-origin: center }
+        .navbar-toggler .menubar.topbar { top:10px;}
+        .navbar-toggler .menubar.middlebar { top:50%;}
+
+                    .navbar-toggler .menubar.bottombar {
+                        bottom: 10px; margin-top:0; margin-bottom:-2px
+                    }
+
+                .navbar-toggler.open .topbar {
+                    top: 50%;
+                    transform: rotate(45deg)
+            }
+
+                .navbar-toggler.open .middlebar { display:none;}
+                .navbar-toggler.open .bottombar {
+                    bottom:50%;
+                    transform:  rotate(-45deg)
+                }
+
+    </style>
+        <div class="@NavMenuCssClass  navbar-collapse" @onclick="ToggleNavMenu">
+    <ul class="nav navbar-nav ml-auto" style="margin-left:auto;">
+        <li class="nav-item">
+            <NavLink class="nav-link" href="#" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="aktionen">
+                <span class="oi oi-flash" aria-hidden="true"></span> Aktionen
+            </NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="kunde">
+                <span class="oi oi-person" aria-hidden="true"></span> Kunde
+            </NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="konfigurator">
+                <span class="oi oi-calculator" aria-hidden="true"></span> Konfigurator
+            </NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="einstellungen">
+                <span class="oi oi-wrench" aria-hidden="true"></span> Einstellungen
+            </NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="login">
+                <span class="oi oi-flash" aria-hidden="true"></span> Log In
+            </NavLink>
+        </li>
+    </ul>
+
+        </div>
+    </div>
+</nav>
+
+@code {
+	private bool collapseNavMenu = true;
+
+	private string NavMenuCssClass => collapseNavMenu ? "collapse" : "collapse-open";
+	private string NavMenuButtonClass => collapseNavMenu ? "closed" : "open";
+
+	private void ToggleNavMenu()
+	{
+		collapseNavMenu = !collapseNavMenu;
+	}
+}

@@ -1,0 +1,67 @@
+body[b-25m33k717y] {
+    font-style: normal;
+    font-family: Arial;
+    font-size: 12pt;
+    background-color:whitesmoke;
+}
+
+@media print
+    {
+        body[b-25m33k717y] {
+            margin: 0;
+            color: #000;
+            background-color: #fff;
+        }
+}
+.document[b-25m33k717y]{
+    margin-left:1.41cm;
+    margin-right:1cm;
+    margin-top:1.69cm;
+    margin-bottom:2cm;
+}
+
+.ln-voll-waagerecht[b-25m33k717y] {
+    width: 100%;
+    border-bottom: 1px solid black;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.DocHeader[b-25m33k717y] {
+    height: 100px;
+    width:100%;
+    border-bottom:1px solid black;
+}
+
+.logo[b-25m33k717y]{
+    float:right;
+    max-height:100%;
+    width: auto;
+}
+
+.firmenname[b-25m33k717y] {
+    text-decoration: underline;
+    font-size: 8pt;
+    margin-top:8pt;
+}
+
+.kundenadresse[b-25m33k717y] {
+  line-height:0.5;
+  float:left;
+  margin-top: 20px;
+}
+.kontaktdaten[b-25m33k717y] {
+  margin-top: 20px;
+}
+p.daten[b-25m33k717y]{
+    float:right;
+}
+
+.labelleft[b-25m33k717y]{
+    float:left;
+    text-align:left;
+}
+.labelright[b-25m33k717y] {
+    float: right;
+    text-align:right;
+}

@@ -1,0 +1,53 @@
+﻿@page "/einstellungen"
+
+<div class="mainframe">
+    <div class="title text-center">
+        <h3>Einstellungen</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6"><p class="labelleft">Benutzer</p></div>
+        <div class="col-sm-6"><input type="text" class="form-control inputbox inputboxmerkmal" @bind="@UserSettings.Benutzer" @onblur="() => Speichern()" disabled></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6"><p class="labelleft">Namenskürzel</p></div> 
+        <div class="col-sm-6"><input type="text" class="form-control inputbox inputboxmerkmal" @bind="@UserSettings.Namenskuerzel" @onblur="() => Speichern()" disabled></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6"><p class="labelleft">Datenpfad</p></div>
+        <div class="col-sm-6"><input type="text" class="form-control inputbox inputboxmerkmal" @bind="@UserSettings.Datenpfad" @onblur="() => Speichern()" disabled></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6"><p class="labelleft">Maximaler Rabatt (%)</p></div>
+        <div class="col-sm-6"><input type="text" class="form-control inputbox inputboxmerkmal" @bind="@UserSettings.Maximalrabatt" @onblur="() => Speichern()" disabled></div>
+    </div></div>
+
+@code {
+
+    private Usersettings UserSettings;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LadeUserSettings();
+    }
+
+    private Task LadeUserSettings()
+    {
+        UserSettings = new Usersettings();
+        UserSettings.Lade();
+        return Task.CompletedTask;
+    }
+    private async Task Speichern()
+    {
+        await SaveUserSetting();
+    }
+
+    private Task SaveUserSetting()
+    {
+        UserSettings.Speichern();
+        return Task.CompletedTask;
+    }
+}
+
+

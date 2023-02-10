@@ -1,0 +1,86 @@
+﻿@page "/"
+<div class="container-fluid h-100">
+    <div class="splashscreen-content">
+        <div class="row h-100 justify-content-center">
+            <div class="col-10 col-lg-8 col-xl-6 align-self-center">
+                <div class="item">
+                    <div class="row small-gap">
+                        <div class="col-12">
+                            <h1 style="font-size:40px">Willkommen im HIRO Konfigurator</h1>
+                            <p>Wo möchten Sie weitermachen?</p>
+
+                        </div>
+                    </div>
+                    <div class="row gap justify-content-center">
+                        <div class="col-12 col-sm-6 col-xl-4">
+                            <a href="aktionen" style="display:block" class="btn btn-start btn-coral small-gap"><span class="oi oi-flash" aria-hidden="true"></span> <span class="label">Aktionen</span></a>
+                        </div>
+                        <div class="col-12 col-sm-6 col-xl-4">
+                            <a href="kunde" style="display:block" class="btn btn-start btn-coral small-gap"><span class="oi oi-person" aria-hidden="true"></span>  <span class="label">Kunde</span></a>
+                        </div>
+                        <div class="col-12 col-sm-6 col-xl-4">
+                            <a href="konfigurator" style="display:block" class="btn btn-start btn-coral small-gap"><span class="oi oi-calculator" aria-hidden="true"></span>  <span class="label">Konfigurator</span></a>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-auto ml-auto text-right small">
+                            <a href="einstellungen" class="plainlink">
+                                <span class="oi oi-wrench" aria-hidden="true"></span> Einstellungen
+                            </a>
+                        </div>
+                        <div class="col-auto ml-auto text-right small">
+                            <a href="login" class="plainlink">
+                            <span class="oi oi-flash" aria-hidden="true"></span> Log In
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+      
+    </div>
+</div>
+
+<style>
+   .btn-start { position: relative; padding:30px 15px}
+  
+   
+
+        .btn-start span.oi {
+            
+            font-size:40px;
+            display: block; text-align: center; width:100%; padding:15px 15px 30px;
+        }
+        .btn-start span.label {
+          
+            text-align: center;
+            font-size:20px
+           
+        }
+
+
+    .splashscreen-content { height100%;
+        padding-top:20Vh;
+    }
+    .splashscreen  { 
+        
+        background-color: #002241;
+        position: fixed; 
+        left:0; 
+        top:0px; 
+        bottom:0; 
+        right:0; 
+        z-index:-1;
+        padding:0;
+    color:#fff;
+
+    }
+
+    .butterfly { position: fixed; z-index:-1; left:0; bottom:0; width:33%; height:55vH;
+    background-image:url(images/butterfly.png); background-position: top right; background-repeat: no-repeat;}
+
+</style>
+<div class="splashscreen">
+<div class="butterfly"></div>
+</div>
